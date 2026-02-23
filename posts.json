@@ -1,10 +1,18 @@
 [
   {
+    "id": "parenting-degree",
+    "title": "The Degree I Did Not Expect to Earn",
+    "date": "2026-02-23",
+    "category": "Reflection",
+    "excerpt": "I've spent my adult life studying education. And yet, raising my son feels like enrolling in a completely different degree program — one with no syllabus, no rubric, no clear feedback.",
+    "content": "<p>I've spent my adult life studying education. I design learning environments. I think about cognition, development, data, equity, pedagogy. I analyze how people learn. And yet, raising my son feels like enrolling in a completely different degree program — one with no syllabus, no rubric, no clear feedback.</p><p>Even though I work in education, I don't always feel ready to raise him \u201cin the right way.\u201d In research, I look for evidence. In parenting, the evidence is… ambiguous. Emotional. Sometimes contradictory. Some moments, he is the absolute best. His smile shines through the cloud of life. Other moments, I replay the day in my head: Was I too strict? Too soft? Did I miss something important? Parenting has humbled me in ways no degree ever did. It has taught me that knowledge about learning does not automatically translate into certainty about raising a child. It has taught me that love does not eliminate doubt. It has taught me that growth — his and mine — is nonlinear.</p><p>Sometimes, after a long day, I realize what I really need is just one sentence: <em>\u201cYou are doing it right.\u201d</em> Not perfectly. Not optimally. Not according to a randomized controlled trial. Just right enough.</p><p>Raising a child is less about how much I know but more about being willing to keep learning — about him, about myself, about patience, about repair, about doing it again tomorrow. And perhaps that is the real degree I'm earning.</p>"
+  },
+  {
     "id": "welcome",
     "title": "Welcome to My Site",
     "date": "2026-02-20",
     "category": "Update",
     "excerpt": "I finally decided to start a personal website and share my thoughts and work in a more informal way. A new space where I'll share research updates, teaching reflections, and thoughts on educational technology and data science education.",
-    "content": "<p>I’m an introverted person and have often felt shy about sharing my thoughts publicly. Because — Is that an outdated idea? Do people even care? But conversations with others have consistently strengthened my work and shaped my thinking. I’ve come to value collaboration deeply. So I asked myself: why not just share it?</p><p>This website is a small step outside my comfort zone. I created it as a space to share what I’m thinking about, working on, and learning. Here, I’ll post research updates, reflections on teaching, and ideas at the intersections of educational technology, data science, and science education.</p>"
+    "content": "<p>I'm an introverted person and have often felt shy about sharing my thoughts publicly. Because — Is that an outdated idea? Do people even care? But conversations with others have consistently strengthened my work and shaped my thinking. I've come to value collaboration deeply. So I asked myself: why not just share it?</p><p>This website is a small step outside my comfort zone. I created it as a space to share what I'm thinking about, working on, and learning. Here, I'll post research updates, reflections on teaching, and ideas at the intersections of educational technology, data science, and science education.</p>"
   }
 ]
