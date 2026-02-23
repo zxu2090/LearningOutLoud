@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thinkery — Zhen Xu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-header {
+      padding: 4rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .page-header h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-top: 0.4rem;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: 0.975rem;
+      margin-top: 0.75rem;
+      max-width: 460px;
+    }
+
+    /* post list */
+    .posts-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    /* full post overlay */
+    #post-view {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    #post-view.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--navy); }
+    .back-btn:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; border-radius: 2px; }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .post-meta__date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* Category filter pills */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .filter-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .filter-btn:hover { background: rgba(26,58,107,0.07); color: var(--navy); border-color: rgba(26,58,107,0.2); }
+    .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .filter-btn:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
+
+    /* TOC sidebar active state */
+    .toc__item.active { background: rgba(26,58,107,0.08); color: var(--navy); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="index.html">Learning Out Loud</a>
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link active" href="thoughts.html">Thinkery</a></li>
+        <li><a class="nav__link" href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header fade-up">
+      <p class="mono">Thoughts & Updates</p>
+      <h1>Thinkery</h1>
+      <p>Research updates, teaching reflections, and ideas in progress.</p>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div id="list-view">
+      <div class="thoughts-layout">
+
+        <!-- Sidebar TOC (shown when ≥ 5 posts) -->
+        <aside class="toc" id="toc-sidebar" style="display:none;">
+          <p class="toc__title">All Posts</p>
+          <ul class="toc__list" id="toc-list"></ul>
+        </aside>
+
+        <!-- Main content -->
+        <div>
+          <!-- Category filters -->
+          <div class="filter-bar" id="filter-bar">
+            <button class="filter-btn active" data-category="all">All</button>
+            <!-- More filter buttons added by JS -->
+          </div>
+
+          <!-- Post cards -->
+          <div class="posts-list" id="posts-list">
+            <p style="color:var(--muted);">Loading…</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- POST VIEW (single post) -->
+    <div id="post-view">
+      <button class="back-btn" id="back-btn" onclick="closePost()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        All posts
+      </button>
+      <article class="post-body" id="post-content">
+        <!-- Rendered post goes here -->
+      </article>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer" style="margin-top:5rem;">
+    <div class="footer__inner">
+      <span class="footer__name">Learning Out Loud</span>
+      <span>University of Tennessee, Knoxville</span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── State ───────────────────────────────────────────────────
+    let allPosts = [];
+    let activeCategory = 'all';
+
+    // ── Nav scroll ──────────────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // ── Fade-up ─────────────────────────────────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.fade-up:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 400);
+
+    // ── Utilities ───────────────────────────────────────────────
+    function formatDate(str) {
+      const d = new Date(str + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    // ── Load posts ──────────────────────────────────────────────
+    async function init() {
+      const res = await fetch('posts.json');
+      allPosts = await res.json();
+      buildFilters();
+      buildTOC();
+      renderList(allPosts);
+      // Check URL hash for direct link to post
+      if (location.hash) {
+        const id = location.hash.slice(1);
+        const post = allPosts.find(p => p.id === id);
+        if (post) openPost(post, false);
+      }
+    }
+
+    // ── Build category filter buttons ────────────────────────────
+    function buildFilters() {
+      const categories = [...new Set(allPosts.map(p => p.category))];
+      const bar = document.getElementById('filter-bar');
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.category = cat;
+        btn.textContent = cat;
+        btn.addEventListener('click', () => setFilter(cat));
+        bar.appendChild(btn);
+      });
+    }
+
+    function setFilter(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.category === cat);
+      });
+      const filtered = cat === 'all' ? allPosts : allPosts.filter(p => p.category === cat);
+      renderList(filtered);
+    }
+
+    // ── Build sidebar TOC ────────────────────────────────────────
+    function buildTOC() {
+      const sidebar = document.getElementById('toc-sidebar');
+      const list = document.getElementById('toc-list');
+      const layout = document.querySelector('.thoughts-layout');
+      // Show sidebar when 5+ posts
+      if (allPosts.length >= 5) {
+        sidebar.style.display = 'block';
+      } else {
+        // Collapse to single column when no sidebar
+        layout.style.gridTemplateColumns = '1fr';
+      }
+
+      list.innerHTML = allPosts.map(p => `
+        <li>
+          <a class="toc__item" href="#${p.id}"
+             onclick="event.preventDefault(); openPost(allPosts.find(x=>x.id==='${p.id}'))">
+            ${p.title}
+          </a>
+        </li>
+      `).join('');
+    }
+
+    // ── Render post card list ────────────────────────────────────
+    function renderList(posts) {
+      const container = document.getElementById('posts-list');
+      if (!posts.length) {
+        container.innerHTML = '<p style="color:var(--muted);">No posts in this category.</p>';
+        return;
+      }
+      container.innerHTML = posts.map(p => `
+        <div class="post-card" tabindex="0"
+             onclick="openPost(allPosts.find(x=>x.id==='${p.id}'))"
+             onkeydown="if(event.key==='Enter'||event.key===' ') openPost(allPosts.find(x=>x.id==='${p.id}'))">
+          <p class="post-card__date">${formatDate(p.date)}</p>
+          <p class="post-card__title">${p.title}</p>
+          <p class="post-card__excerpt">${p.excerpt}</p>
+          <div class="post-card__footer">
+            <span class="tag tag--${categoryColor(p.category)}">${p.category}</span>
+            <span style="font-size:0.8rem; color:var(--terra); font-weight:600;">Read →</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function categoryColor(cat) {
+      const map = { 'Research': 'terra', 'Update': 'navy', 'Teaching': 'green' };
+      return map[cat] || 'navy';
+    }
+
+    // ── Open a single post ───────────────────────────────────────
+    function openPost(post, pushState = true) {
+      if (!post) return;
+      const listView = document.getElementById('list-view');
+      const postView = document.getElementById('post-view');
+      const content = document.getElementById('post-content');
+
+      // Update TOC active state
+      document.querySelectorAll('.toc__item').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === '#' + post.id);
+      });
+
+      content.innerHTML = `
+        <div class="post-meta">
+          <span class="post-meta__date">${formatDate(post.date)}</span>
+          <span class="tag tag--${categoryColor(post.category)}">${post.category}</span>
+        </div>
+        <h1>${post.title}</h1>
+        <div class="divider" style="margin-top:1rem;"></div>
+        <div style="margin-top:1.5rem;">${renderContent(post.content)}</div>
+      `;
+
+      listView.style.display = 'none';
+      postView.classList.add('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (pushState) history.pushState({ postId: post.id }, '', '#' + post.id);
+      document.title = `${post.title} — Zhen Xu`;
+    }
+
+    // Render content: supports raw HTML or plain text
+    function renderContent(content) {
+      if (content.trim().startsWith('<')) return content; // raw HTML
+      // Plain text → wrap paragraphs
+      return content.split(/\n\n+/).map(para => `<p>${para.trim()}</p>`).join('');
+    }
+
+    // ── Close post / back to list ─────────────────────────────────
+    function closePost() {
+      document.getElementById('list-view').style.display = 'block';
+      document.getElementById('post-view').classList.remove('open');
+      history.pushState({}, '', 'thoughts.html');
+      document.title = 'Thinkery — Zhen Xu';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      if (location.hash) {
+        const id = location.hash.slice(1);
+        const post = allPosts.find(p => p.id === id);
+        if (post) { openPost(post, false); return; }
+      }
+      closePost();
+    });
+
+    init();
+  </script>
+</body>
+</html>

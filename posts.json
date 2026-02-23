@@ -1,0 +1,10 @@
+[
+  {
+    "id": "welcome",
+    "title": "Welcome to My Site",
+    "date": "2026-02-20",
+    "category": "Update",
+    "excerpt": "I finally decided to start a personal website and share my thoughts and work in a more informal way. A new space where I'll share research updates, teaching reflections, and thoughts on educational technology and data science education.",
+    "content": "<p>I’m an introverted person and have often felt shy about sharing my thoughts publicly. Because — Is that an outdated idea? Do people even care? But conversations with others have consistently strengthened my work and shaped my thinking. I’ve come to value collaboration deeply. So I asked myself: why not just share it?</p><p>This website is a small step outside my comfort zone. I created it as a space to share what I’m thinking about, working on, and learning. Here, I’ll post research updates, reflections on teaching, and ideas at the intersections of educational technology, data science, and science education.</p>"
+  }
+]

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Out Loud — Zhen Xu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem 0 3rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 75% 65% at 70% 25%, rgba(26,58,107,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 10% 80%, rgba(201,106,53,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 50% at 50% 0%,  rgba(43,95,74,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    /* grain */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+    }
+    .hero__inner {
+      position: relative; z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .hero__text { flex: 1; min-width: 260px; }
+    .hero__label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1rem;
+    }
+    .hero__name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.75rem, 8vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--navy);
+    }
+    .hero__name em { font-style: italic; color: var(--terra); }
+
+    .hero__keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .hero__bio {
+      color: var(--muted);
+      font-size: 0.975rem;
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 1.75rem;
+    }
+    .hero__links { display: flex; flex-wrap: wrap; gap: 0.625rem; }
+
+    /* ── Latest posts strip ─────────────────────────────────── */
+    .latest-posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+
+    /* ── Now / Updates section ──────────────────────────────── */
+    .updates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .update-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .update-block__label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .update-block p { font-size: 0.9rem; color: var(--text); line-height: 1.65; }
+    .update-block p em { color: var(--muted); font-size: 0.82rem; font-style: normal; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="index.html">Learning Out Loud</a>
+      <ul class="nav__links">
+        <li><a class="nav__link active" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="thoughts.html">Thinkery</a></li>
+        <li><a class="nav__link" href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__inner">
+
+        <!-- Text -->
+        <div class="hero__text fade-up">
+          <p class="hero__label">Researcher · Educator · Global Citizen</p>
+          <h1 class="hero__name">Zhen <em>Xu</em><span style="display:inline-block; font-size:0.5em; font-weight:400; font-style:normal; color:var(--muted); letter-spacing:0.04em; margin-left:0.5em; vertical-align:middle;">徐真</span></h1>
+
+          <!-- Keyword tags -->
+          <div class="hero__keywords">
+            <span class="tag tag--navy">Educational Technology</span>
+            <span class="tag tag--terra">Data Science Education</span>
+            <span class="tag tag--green">Science Education</span>
+          </div>
+
+          <p class="hero__bio" style="margin-bottom:0.5rem;">
+            Postdoc Research Associate at the University of Tennessee, Knoxville.
+          </p>
+          <p class="hero__bio">
+            I design AI-powered learning experiences to support students and teachers in using data to understand the world, and making evidence-informed decisions.
+          </p>
+
+          <!-- External links -->
+          <div class="hero__links">
+            <a class="social-link"
+               href="https://scholar.google.com/citations?user=cWnHCIwAAAAJ&hl=en"
+               target="_blank" rel="noopener">
+              <!-- Google Scholar icon -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+              Google Scholar
+            </a>
+            <a class="social-link"
+               href="https://www.linkedin.com/in/zhen-xu-a65464a3/"
+               target="_blank" rel="noopener">
+              <!-- LinkedIn icon -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 114.75 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="photo-wrap fade-up" style="transition-delay:0.15s;">
+          <img src="ZXu%20copy%202.png" alt="Zhen Xu" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LATEST FROM THOUGHTS ══════════════════════════════════ -->
+  <section class="section section--alt" style="padding-top:2rem; padding-bottom:2rem;">
+    <div class="container">
+      <div class="section-head fade-up">
+        <p class="mono">Latest</p>
+        <h2>From Thinkery</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="latest-posts" id="latest-posts">
+        <!-- Populated by JS -->
+        <p style="color:var(--muted); font-size:0.9rem;">Loading posts…</p>
+      </div>
+
+      <div style="margin-top:1.75rem;" class="fade-up">
+        <a class="btn btn--outline" href="thoughts.html">See all posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NOW / UPDATES ══════════════════════════════════════════ -->
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+      <div class="section-head fade-up">
+        <p class="mono">Now</p>
+        <h2>What I'm Up To</h2>
+        <div class="divider"></div>
+        <p style="color:var(--muted); font-size:0.875rem; margin-top:-1rem; margin-bottom:1.5rem;">
+          A snapshot of what I'm working on. Updated periodically.
+          <!-- Edit the blocks below to update this section -->
+        </p>
+      </div>
+
+      <div class="updates-grid">
+        <div class="update-block fade-up" style="transition-delay:0.05s;">
+          <p class="update-block__label">📚 Reading</p>
+          <p>
+            <em>Update this in index.html → "Reading" block.</em>
+          </p>
+        </div>
+        <div class="update-block fade-up" style="transition-delay:0.1s;">
+          <p class="update-block__label">🔬 Researching</p>
+          <p>
+            <em>Update this in index.html → "Researching" block.</em>
+          </p>
+        </div>
+        <div class="update-block fade-up" style="transition-delay:0.15s;">
+          <p class="update-block__label">🎓 Teaching</p>
+          <p>
+            <em>Update this in index.html → "Teaching" block.</em>
+          </p>
+        </div>
+        <div class="update-block fade-up" style="transition-delay:0.2s;">
+          <p class="update-block__label">✈️ Upcoming</p>
+          <p>
+            <em>Update this in index.html → "Upcoming" block.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__name">Learning Out Loud</span>
+      <span>University of Tennessee, Knoxville</span>
+      <span>© 2026</span>
+    </div>
+  </footer>
+
+  <!-- ═══ SCRIPTS ══════════════════════════════════════════════ -->
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Fade-up on scroll
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    fadeEls.forEach(el => io.observe(el));
+    // Fallback: show everything after 400ms in case observer doesn't fire
+    setTimeout(() => {
+      document.querySelectorAll('.fade-up:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 400);
+
+    // Load latest posts from posts.json
+    async function loadLatestPosts() {
+      const container = document.getElementById('latest-posts');
+      try {
+        const res = await fetch('posts.json');
+        const posts = await res.json();
+        const latest = posts.slice(0, 2); // show 2 most recent
+
+        container.innerHTML = latest.map(p => `
+          <a class="post-card fade-up" href="thoughts.html#${p.id}" style="text-decoration:none;">
+            <p class="post-card__date">${formatDate(p.date)} · ${p.category}</p>
+            <p class="post-card__title">${p.title}</p>
+            <p class="post-card__excerpt">${p.excerpt}</p>
+            <div class="post-card__footer">
+              <span style="font-size:0.8rem; color:var(--terra); font-weight:600;">Read more →</span>
+            </div>
+          </a>
+        `).join('');
+
+        // Re-observe new elements for fade-up
+        container.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+      } catch (e) {
+        container.innerHTML = '<p style="color:var(--muted);">No posts yet.</p>';
+      }
+    }
+
+    function formatDate(str) {
+      const d = new Date(str + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    loadLatestPosts();
+  </script>
+</body>
+</html>
